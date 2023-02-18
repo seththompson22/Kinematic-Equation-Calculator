@@ -9,10 +9,12 @@ public class kinematicEquations {
      */
     /**
      * Base Kinematic Equation:
-     * finalVelocity = initialVelocity + (acceleration)*(time)
+     * target = 2 --> finalVelocity = initialVelocity + (acceleration)*(time)
      *
      * Equation in terms of other variables:
-     *
+     * target = 1 --> initialVelocity = finalVelocity - (acceleration)*(time)
+     * target = 3 --> acceleration = (finalVelocity - initialVelocity) / time
+     * target = 4 --> time = (finalVelocity - initialVelocity) / acceleration
      *
      *
      * @param finalVelocity      value for final velocity : 2 (target value)
@@ -24,18 +26,17 @@ public class kinematicEquations {
      */
 
     public static double notDisplacement(double finalVelocity, double initialVelocity, double acceleration, double time, int target) {
-        // filler value for now, there will be 4 calculations per method based on which value is missing
-        // (missing values will be zero and the missing variable will also indicate the variable
-        // that is unknown, in case of zero as a normal input)
         return finalVelocity;
     }
 
     /**
      * Base Kinematic Equation:
-     * displacement = (initialVelocity)*(time) + (0.5)*(acceleration)*(time^2)
+     * target = 0 --> displacement = (initialVelocity)*(time) + (0.5)*(acceleration)*(time^2)
      *
      * Equation in terms of other variables:
-     *
+     * target = 1 --> initialVelocity = ((0.5)*(acceleration)*(time^2) - displacement) / time
+     * target = 4 --> time = ((-1 * initialVelocity) +- sqrt( initialVelocity^2 + (2)*(acceleration)*(displacement) )) / acceleration
+     * target = 3 --> acceleration = (2 * (displacement - (initialVelocity)*(time))) / time^2
      *
      *
      * @param displacement       value for displacement : 0 (target value)
@@ -52,10 +53,12 @@ public class kinematicEquations {
 
     /**
      * Base Kinematic Equation:
-     * finalVelocity^2 = initialVelocity^2 + (2)*(acceleration)*(displacement)
+     * target = 2 --> finalVelocity = sqrt( (initialVelocity^2 + (2)*(acceleration)*(displacement)) )
      *
      * Equation in terms of other variables:
-     *
+     * target = 1 --> initialVelocity = sqrt( (finalVelocity^2 - (2)*(acceleration)*(displacement)) )
+     * target = 3 --> acceleration = (finalVelocity^2 - initialVelocity^2) / (2)*(displacement)
+     * target = 0 --> displacement = (finalVelocity^2 - initialVelocity^2) / (2)*(acceleration)
      *
      *
      * @param finalVelocity      value for final velocity : 2 (target value)
@@ -72,10 +75,12 @@ public class kinematicEquations {
 
     /**
      * Base Kinematic Equation:
-     * displacement = (0.5)*(initialVelocity + finalVelocity)*(time)
+     * target = 0 --> displacement = (0.5)*(initialVelocity + finalVelocity)*(time)
      *
      * Equation in terms of other variables:
-     *
+     * target = 1 --> initialVelocity = ((2)*(displacement) / time ) - finalVelocity)
+     * target = 2 --> finalVelocity = ((2)*(displacement) / time ) - initialVelocity)
+     * target = 4 --> time = (2)*(displacement) / (initialVelocity + finalVelocity)
      *
      *
      * @param displacement       value for displacement : 0 (target value)
@@ -92,10 +97,12 @@ public class kinematicEquations {
 
     /**
      * Base Kinematic Equation:
-     * displacement = (finalVelocity)*(time) - (0.5)*(acceleration)*(time^2)
+     * target = 0 --> displacement = (finalVelocity)*(time) - (0.5)*(acceleration)*(time^2)
      *
      * Equation in terms of other variables:
-     *
+     * target = 2 --> finalVelocity = (displacement + (0.5)*(acceleration)*(time^2)) / time
+     * target = 4 --> time = ((-1 * finalVelocity) +- sqrt( finalVelocity^2 - (2)*(acceleration)*(displacement) )) / (-1)*(acceleration)
+     * target = 3 --> acceleration = ((-2)*((displacement - (finalVelocity)*(time)))) / time^2
      *
      *
      * @param displacement     value for displacement : 0 (target value)
