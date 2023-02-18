@@ -112,8 +112,23 @@ public class kinematicEquations {
      * @return    value of the unknown target as a double
      */
     public static double notTime(double finalVelocity, double initialVelocity, double acceleration, double displacement, int target) {
-        // filler value for now
-        return finalVelocity;
+        // if finalVelocity is the unknown target
+        if (target == 2) {
+            return Math.sqrt((Math.pow(initialVelocity, 2) + (2 * acceleration * displacement)));
+        }
+        // if initialVelocity is the unknown target
+        else if (target == 1) {
+            return Math.sqrt( Math.pow(finalVelocity, 2) - (2 * acceleration * displacement));
+        }
+        // if acceleration is the unknown target
+        else if (target == 3) {
+            return (Math.pow(finalVelocity, 2) - Math.pow(initialVelocity, 2)) / (2 * displacement);
+        }
+        // if displacement is the unknown target
+        else if (target == 0) {
+            return (Math.pow(finalVelocity, 2) - Math.pow(initialVelocity, 2)) / (2 * acceleration);
+        }
+        return -1;
     }
 
     /**
