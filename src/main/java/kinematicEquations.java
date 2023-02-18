@@ -186,7 +186,34 @@ public class kinematicEquations {
      * @return    value of the unknown target as a double
      */
     public static double notInitialVelocity(double displacement, double finalVelocity, double time, double acceleration, int target) {
-        // filler value for now
-        return displacement;
+        // if displacement is the unknown target
+        if (target == 0) {
+            return (finalVelocity * time) - (0.5 * acceleration * Math.pow(time, 2));
+        }
+        // if finalVelocity is the unknown target
+        else if (target == 2) {
+            return (displacement + (0.5 * acceleration * Math.pow(time, 2))) / time;
+        }
+        // if time is the unknown target
+        else if (target == 4) {
+            double underSQRT = Math.sqrt(Math.pow(finalVelocity, 2) + (2 * acceleration * displacement));
+            double time1 = ((-1 * finalVelocity) + underSQRT) / (-1 * acceleration);
+            double time2 = ((-1 * finalVelocity) - underSQRT) / (-1 * acceleration);
+            if ((time1 >= 0) && (time2 >= 0)) {
+                System.out.println("Time: " + time1);
+                return time2;
+            }
+            else if (time1 >= 0) {
+                return time1;
+            }
+            else if (time2 >= 0) {
+                return time2;
+            }
+        }
+        // if acceleration is the unknown target
+        else if (target == 3) {
+            return ((-2 * (displacement - (finalVelocity * time)))) / Math.pow(time, 2);
+        }
+        return -1;
     }
 }
