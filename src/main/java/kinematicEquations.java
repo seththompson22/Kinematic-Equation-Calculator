@@ -26,7 +26,23 @@ public class kinematicEquations {
      */
 
     public static double notDisplacement(double finalVelocity, double initialVelocity, double acceleration, double time, int target) {
-        return finalVelocity;
+        // if finalVelocity is the unknown target
+        if (target == 2) {
+            return initialVelocity + (acceleration * time);
+        }
+        // if initialVelocity is the unknown target
+        else if (target == 1) {
+            return finalVelocity - (acceleration * time);
+        }
+        // if acceleration is the unknown target
+        else if (target == 3) {
+            return (finalVelocity - initialVelocity) / time;
+        }
+        // if time is the unknown target
+        else if (target == 4) {
+            return (finalVelocity - initialVelocity) / acceleration;
+        }
+        return -1;
     }
 
     /**
