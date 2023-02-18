@@ -31,7 +31,8 @@ public class controls {
                 acceleration = sc.nextDouble();
                 System.out.print("Time: ");
                 time = sc.nextDouble();
-                kinematicEquations.notInitialVelocity(0, v_f, time, acceleration, target);
+                calculation = kinematicEquations.notInitialVelocity(0, v_f, time, acceleration, target);
+                System.out.println("Displacement: " + calculation);
             }
 
             else if (avoid == 2) {
@@ -41,7 +42,8 @@ public class controls {
                 acceleration = sc.nextDouble();
                 System.out.print("Time: ");
                 time = sc.nextDouble();
-                kinematicEquations.notFinalVelocity(0, v_0, time, acceleration, target);
+                calculation = kinematicEquations.notFinalVelocity(0, v_0, time, acceleration, target);
+                System.out.println("Displacement: " + calculation);
             }
 
             else if (avoid == 3) {
@@ -51,7 +53,8 @@ public class controls {
                 v_f = sc.nextDouble();
                 System.out.print("Time: ");
                 time = sc.nextDouble();
-                kinematicEquations.notAcceleration(0, v_0, v_f, time, target);
+                calculation = kinematicEquations.notAcceleration(0, v_0, v_f, time, target);
+                System.out.println("Displacement: " + calculation);
             }
 
             else if (avoid == 4) {
@@ -61,7 +64,8 @@ public class controls {
                 v_f = sc.nextDouble();
                 System.out.print("Acceleration: ");
                 acceleration = sc.nextDouble();
-                kinematicEquations.notTime(v_f, v_0, acceleration, 0, target);
+                calculation = kinematicEquations.notTime(v_f, v_0, acceleration, 0, target);
+                System.out.println("Displacement: " + calculation);
             }
 
             else {
@@ -87,7 +91,7 @@ public class controls {
 
             else if (avoid == 2) {
                 System.out.print("Displacement: ");
-                v_0 = sc.nextDouble();
+                displacement = sc.nextDouble();
                 System.out.print("Acceleration: ");
                 acceleration = sc.nextDouble();
                 System.out.print("Time: ");
@@ -98,7 +102,7 @@ public class controls {
 
             else if (avoid == 3) {
                 System.out.print("Displacement: ");
-                v_0 = sc.nextDouble();
+                displacement = sc.nextDouble();
                 System.out.print("Final Velocity: ");
                 v_f = sc.nextDouble();
                 System.out.print("Time: ");
@@ -109,7 +113,7 @@ public class controls {
 
             else if (avoid == 4) {
                 System.out.print("Displacement: ");
-                v_0 = sc.nextDouble();
+                displacement = sc.nextDouble();
                 System.out.print("Final Velocity: ");
                 v_f = sc.nextDouble();
                 System.out.print("Acceleration: ");
@@ -123,5 +127,166 @@ public class controls {
             }
         }
 
+        else if (target == 2) {
+            System.out.println("\nOut of the following values, which one do you not have?");
+            System.out.println("(0) Displacement\n(1) Initial Velocity\n(3) Acceleration\n(4) Time\n");
+            avoid = sc.nextInt();
+            if (avoid == 0) {
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notDisplacement(0, v_0, acceleration, time, target);
+                System.out.println("Final Velocity: " + calculation);
+            }
+
+            else if (avoid == 1) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notInitialVelocity(displacement, 0, time, acceleration, target);
+                System.out.println("Final Velocity: " + calculation);
+            }
+
+            else if (avoid == 3) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notAcceleration(displacement, v_0, 0, time, target);
+                System.out.println("Final Velocity: " + calculation);
+            }
+
+            else if (avoid == 4) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                calculation = kinematicEquations.notTime(0, v_0, acceleration, displacement, target);
+                System.out.println("Final Velocity: " + calculation);
+            }
+
+            else {
+                System.out.println("Value to avoid was unexpected");
+            }
+        }
+
+        else if (target == 3) {
+            System.out.println("\nOut of the following values, which one do you not have?");
+            System.out.println("(0) Displacement\n(1) Initial Velocity\n(2) Final Velocity\n(4) Time\n");
+            avoid = sc.nextInt();
+            if (avoid == 0) {
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notDisplacement(v_f, v_0, 0, time, target);
+                System.out.println("Acceleration: " + calculation);
+            }
+
+            else if (avoid == 1) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notInitialVelocity(displacement, v_f, time, 0, target);
+                System.out.println("Acceleration: " + calculation);
+            }
+
+            else if (avoid == 2) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Time: ");
+                time = sc.nextDouble();
+                calculation = kinematicEquations.notFinalVelocity(displacement, v_0, time, 0, target);
+                System.out.println("Acceleration: " + calculation);
+            }
+
+            else if (avoid == 4) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                calculation = kinematicEquations.notTime(v_f, v_0, 0, displacement, target);
+                System.out.println("Acceleration: " + calculation);
+            }
+
+            else {
+                System.out.println("Value to avoid was unexpected");
+            }
+        }
+
+        else if (target == 4) {
+            System.out.println("\nOut of the following values, which one do you not have?");
+            System.out.println("(0) Displacement\n(1) Initial Velocity\n(2) Final Velocity\n(3) Acceleration\n");
+            avoid = sc.nextInt();
+            if (avoid == 0) {
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                calculation = kinematicEquations.notDisplacement(v_f, v_0, acceleration, 0, target);
+                System.out.println("Time: " + calculation);
+            }
+
+            else if (avoid == 1) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                calculation = kinematicEquations.notInitialVelocity(displacement, v_f, 0, acceleration, target);
+                System.out.println("Time: " + calculation);
+            }
+
+            else if (avoid == 2) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Acceleration: ");
+                acceleration = sc.nextDouble();
+                calculation = kinematicEquations.notFinalVelocity(displacement, v_0, 0, acceleration, target);
+                System.out.println("Time: " + calculation);
+            }
+
+            else if (avoid == 3) {
+                System.out.print("Displacement: ");
+                displacement = sc.nextDouble();
+                System.out.print("Initial Velocity: ");
+                v_0 = sc.nextDouble();
+                System.out.print("Final Velocity: ");
+                v_f = sc.nextDouble();
+                calculation = kinematicEquations.notAcceleration(displacement, v_0, v_f, 0, target);
+                System.out.println("Time: " + calculation);
+            }
+
+            else {
+                System.out.println("Value to avoid was unexpected");
+            }
+        }
+        else {
+            System.out.println("Value to calculate was unexpected");
+        }
     }
 }
