@@ -65,7 +65,6 @@
         const nodelist = document.querySelectorAll(".container input");
         var arrayOfValues = [];
         Array.from(nodelist).forEach((el) => arrayOfValues.push(el.value));
-        console.log(arrayOfValues);
         return arrayOfValues;
       }
 
@@ -76,6 +75,7 @@
             valueCount++;
           }
         }
+        console.log(array);
         return valueCount;
       }
 
@@ -87,7 +87,18 @@
         time.value = "";
       }
 
-      function calculate(valuesArray, valueCount, numSolutions) {}
+      function findTargets(valuesArray) {
+        var targets = [];
+        for (let i = 0; i < valuesArray.length; i++) {
+          if (valuesArray[i].toString().trim() == "") {
+            targets.push(i);
+          }
+        }
+        console.log(targets);
+        return targets;
+      }
+
+      function calculate(valuesArray, valueCount) {}
 
       function validateForm() {
         var valuesArray = getValues();
@@ -107,7 +118,11 @@
           alert("not enough values entered!");
           resetValues();
         }
-        calculate(valuesArray, valueCount, numSolutions);
+
+        if (isValid) {
+          findTargets(valuesArray);
+          calculate(valuesArray, valueCount);
+        }
       }
 
       submitButton.addEventListener("click", validateForm);
