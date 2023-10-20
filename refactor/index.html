@@ -42,15 +42,14 @@
     </div>
 
     <script>
-      let displacement = document.getElementById("displacement");
-      let initialVelocity = document.getElementById("initial-velocity");
-      let finalVelocity = document.getElementById("final-velocity");
-      let acceleration = document.getElementById("acceleration");
-      let time = document.getElementById("time");
-      let submitButton = document.getElementById("submit-btn");
-      let out1 = document.getElementById("output-1");
+      var displacement = document.getElementById("displacement");
+      var initialVelocity = document.getElementById("initial-velocity");
+      var finalVelocity = document.getElementById("final-velocity");
+      var acceleration = document.getElementById("acceleration");
+      var time = document.getElementById("time");
+      var submitButton = document.getElementById("submit-btn");
+      var out1 = document.getElementById("output-1");
 
-      const isEmpty = (str) => !str.trim().length;
       var isValid = false;
       var numSolutions = 0;
 
@@ -63,14 +62,38 @@
         out1.innerHTML += time.value + " ";
       }
 
-      function validateForm() {
+      function getValues() {
         const nodelist = document.querySelectorAll(".container input");
-        let valueCount = 0;
-        Array.from(nodelist).forEach(function (el) {
-          if (!isEmpty(el.value)) {
+        var arrayOfValues = [];
+        Array.from(nodelist).forEach((el) => arrayOfValues.push(el.value));
+        console.log(arrayOfValues);
+        return arrayOfValues;
+      }
+
+      function countValues(array) {
+        var valueCount = 0;
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].toString().trim() != "") {
             valueCount++;
           }
-        });
+        }
+        return valueCount;
+      }
+
+      function resetValues() {
+        displacement.value = "";
+        initialVelocity.value = "";
+        finalVelocity.value = "";
+        acceleration.value = "";
+        time.value = "";
+      }
+
+      function calculate(valuesArray, valueCount, numSolutions) {}
+
+      function validateForm() {
+        var valuesArray = getValues();
+        var valueCount = countValues(valuesArray);
+
         //valuecount is now the number of the fields that is filled in.
         console.log(valueCount);
         //checking arguments based on valueCount
@@ -83,17 +106,22 @@
         } else if (valueCount == 5) {
           isValid = false;
           numSolutions = 0;
+          alert("you cannot enter all 5 values");
+          //reset values;
+          resetValues();
         } else {
           isValid = false;
           numSolutions = 0;
           alert("not enough values entered!");
+          //reset values;
+          resetValues();
         }
+        calculate(valuesArray, valueCount, numSolutions);
       }
 
       submitButton.addEventListener("click", validateForm);
-      if (isValid) {
-        submitButton.addEventListener("click", displayInputs);
-      }
+      submitButton.addEventListener("click", calculate);
+      submitButton.addEventListener("click", displayInputs);
     </script>
   </body>
 </html>
