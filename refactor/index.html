@@ -51,7 +51,6 @@
       var out1 = document.getElementById("output-1");
 
       var isValid = false;
-      var numSolutions = 0;
 
       function displayInputs() {
         out1.innerHTML = "";
@@ -97,23 +96,15 @@
         //valuecount is now the number of the fields that is filled in.
         console.log(valueCount);
         //checking arguments based on valueCount
-        if (valueCount == 4) {
+        if (valueCount == 4 || valueCount == 3) {
           isValid = true;
-          numSolutions = 1;
-        } else if (valueCount == 3) {
-          isValid = true;
-          numSolutions = 2;
         } else if (valueCount == 5) {
           isValid = false;
-          numSolutions = 0;
           alert("you cannot enter all 5 values");
-          //reset values;
           resetValues();
         } else {
           isValid = false;
-          numSolutions = 0;
           alert("not enough values entered!");
-          //reset values;
           resetValues();
         }
         calculate(valuesArray, valueCount, numSolutions);
