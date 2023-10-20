@@ -42,6 +42,11 @@
     </div>
 
     <script>
+      import { notDisplacement } from "kinematicEquations.js";
+      import { notFinalVelocity } from "kinematicEquations.js";
+      import { notTime } from "kinematicEquations.js";
+      import { notAcceleration } from "kinematicEquations.js";
+      import { notInitialVelocity } from "kinematicEquations.js";
       var displacement = document.getElementById("displacement");
       var initialVelocity = document.getElementById("initial-velocity");
       var finalVelocity = document.getElementById("final-velocity");
@@ -98,7 +103,7 @@
         return targets;
       }
 
-      function calculate(valuesArray, valueCount) {}
+      function calculate(valuesArray, target, avoid) {}
 
       function validateForm() {
         var valuesArray = getValues();
@@ -120,8 +125,12 @@
         }
 
         if (isValid) {
-          findTargets(valuesArray);
-          calculate(valuesArray, valueCount);
+          var targets = findTargets(valuesArray);
+          if (targets.length == 2) {
+            calculate(valuesArray, targets[0], targets[1]);
+            calculate(valuesArray, targets[1], targets[0]);
+          }
+          calculate(valuesArray, valueCount, targets);
         }
       }
 

@@ -23,7 +23,7 @@ When target = 4 -> time is the unknown target
  * @return    value of the unknown target as a double
  */
 
-function notDisplacement(finalVelocity, initialVelocity, acceleration, time, target) {
+export function notDisplacement(finalVelocity, initialVelocity, acceleration, time, target) {
     // if finalVelocity is the unknown target
     if (target == 2) {
         return initialVelocity + (acceleration * time);
@@ -60,7 +60,7 @@ function notDisplacement(finalVelocity, initialVelocity, acceleration, time, tar
  * @param target             holds the value for position of unknown argument (an assigned id)
  * @return    value of the unknown target as a double
  */
-function notFinalVelocity(displacement, initialVelocity, time, acceleration, target) {
+export function notFinalVelocity(displacement, initialVelocity, time, acceleration, target) {
     // if displacement is the unknown target
     if (target == 0) {
         return (initialVelocity * time) + (0.5 * acceleration * Math.pow(time, 2));
@@ -109,7 +109,7 @@ function notFinalVelocity(displacement, initialVelocity, time, acceleration, tar
  * @param target             holds the value for position of unknown argument (an assigned id)
  * @return    value of the unknown target as a double
  */
-function notTime(finalVelocity, initialVelocity, acceleration, displacement, target) {
+export function notTime(finalVelocity, initialVelocity, acceleration, displacement, target) {
     // if finalVelocity is the unknown target
     if (target == 2) {
         return Math.sqrt((Math.pow(initialVelocity, 2) + (2 * acceleration * displacement)));
@@ -146,7 +146,7 @@ function notTime(finalVelocity, initialVelocity, acceleration, displacement, tar
  * @param target             holds the value for position of unknown argument (an assigned id)
  * @return    value of the unknown target as a double
  */
-function notAcceleration(displacement, initialVelocity, finalVelocity, time, target) {
+export function notAcceleration(displacement, initialVelocity, finalVelocity, time, target) {
     // if displacement is the unknown target
     if (target == 0) {
         return ((0.5 * initialVelocity) + (finalVelocity * time));
@@ -183,7 +183,7 @@ function notAcceleration(displacement, initialVelocity, finalVelocity, time, tar
  * @param target           holds the value for position of unknown argument (an assigned id)
  * @return    value of the unknown target as a double
  */
-function notInitialVelocity(displacement, finalVelocity, time, acceleration, target) {
+export function notInitialVelocity(displacement, finalVelocity, time, acceleration, target) {
     // if displacement is the unknown target
     if (target == 0) {
         return (finalVelocity * time) - (0.5 * acceleration * Math.pow(time, 2));
