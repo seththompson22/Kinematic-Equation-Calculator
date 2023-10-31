@@ -132,8 +132,8 @@ if (valueCount == 4 || valueCount == 3) {
         } else {
             results.push(calculate(valuesArray, targets[0], targets[0] - 1));
         }
-        displayOutputs(results);
         }
+        displayOutputs(results);
     }
 }
 
