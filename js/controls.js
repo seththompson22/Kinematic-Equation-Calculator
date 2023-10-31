@@ -139,3 +139,5 @@ if (valueCount == 4 || valueCount == 3) {
 
 submitButton.addEventListener("click", validateForm);
 submitButton.addEventListener("click", displayInputs);
+submitButton.addEventListener("click", calculate);
+submitButton.addEventListener("click", displayOutputs);
