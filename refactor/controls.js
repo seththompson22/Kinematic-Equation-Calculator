@@ -1,8 +1,9 @@
-import { notDisplacement } from "./kinematicEquations.js";
-import { notFinalVelocity } from "kinematicEquations.js";
-import { notTime } from "./kinematicEquations.js";
-import { notAcceleration } from "./kinematicEquations.js";
-import { notInitialVelocity } from "./kinematicEquations.js";
+import { notDisplacement } from "./kinematicEquations";
+import { notFinalVelocity } from "./kinematicEquations";
+import { notTime } from "./kinematicEquations";
+import { notAcceleration } from "./kinematicEquations";
+import { notInitialVelocity } from "./kinematicEquations";
+// import { notTime } from "./kinematicEquations";
 var displacement = document.getElementById("displacement");
 var initialVelocity = document.getElementById("initial-velocity");
 var finalVelocity = document.getElementById("final-velocity");
@@ -102,9 +103,9 @@ if (target == 0) {
 
 function displayOutputs(resultsArray) {
 out2.innerHTML = "";
-for (let i = 0; i < resultsArray.length; i++) {
-    out2.innerHTML += resultsArray[i].value + " ";
-}
+    for (let i = 0; i < resultsArray.length; i++) {
+        out2.innerHTML += resultsArray[i].value + " ";
+    }
 }
 
 function validateForm() {
