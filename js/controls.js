@@ -1,4 +1,4 @@
-import * as hello from "/Kinematic-Equation-Calculator/js/kinematicEquations.js";
+import * as equations from "/Kinematic-Equation-Calculator/js/kinematicEquations.js";
 // import { notTime } from "./kinematicEquations";
 var displacement = document.getElementById("displacement");
 var initialVelocity = document.getElementById("initial-velocity");
@@ -68,22 +68,22 @@ if (target == 0) {
     v_f = valuesArray[2];
     acceleration = valuesArray[3];
     time = valuesArray[4];
-    displacement =  hello.notInitialVelocity(0, v_f, time, acceleration, target)
+    displacement =  equations.notInitialVelocity(0, v_f, time, acceleration, target)
     } else if (avoid == 2) {
     v_0 = valuesArray[1];
     acceleration = valuesArray[3];
     time = valuesArray[4];
-    displacement = notFinalVelocity(0, v_0, time, acceleration, target);
+    displacement = equations.notFinalVelocity(0, v_0, time, acceleration, target);
     } else if (avoid == 3) {
     v_0 = valuesArray[1];
     v_f = valuesArray[2];
     time = valuesArray[4];
-    displacement = notAcceleration(0, v_0, v_f, time, target);
+    displacement = equations.notAcceleration(0, v_0, v_f, time, target);
     } else if (avoid == 4) {
     v_0 = valuesArray[1];
     v_f = valuesArray[2];
     acceleration = valuesArray[3];
-    displacement = notTime(v_f, v_0, acceleration, 0, target);
+    displacement = equations.notTime(v_f, v_0, acceleration, 0, target);
     } else {
     System.out.println("Value to avoid was unexpected");
     }
