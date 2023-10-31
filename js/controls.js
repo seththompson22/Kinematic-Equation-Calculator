@@ -1,8 +1,4 @@
-import { notDisplacement } from "Kinematic-Equation-Calculator\js\kinematicEquations.js";
-import { notFinalVelocity } from "Kinematic-Equation-Calculator\js\kinematicEquations.js";
-import { notTime } from "Kinematic-Equation-Calculator\js\kinematicEquations.js";
-import { notAcceleration } from "Kinematic-Equation-Calculator\js\kinematicEquations.js";
-import { notInitialVelocity } from "Kinematic-Equation-Calculator\js\kinematicEquations.js";
+import * as hello from "/Kinematic-Equation-Calculator/js/kinematicEquations.js";
 // import { notTime } from "./kinematicEquations";
 var displacement = document.getElementById("displacement");
 var initialVelocity = document.getElementById("initial-velocity");
@@ -72,13 +68,7 @@ if (target == 0) {
     v_f = valuesArray[2];
     acceleration = valuesArray[3];
     time = valuesArray[4];
-    displacement = notInitialVelocity(
-        0,
-        v_f,
-        time,
-        acceleration,
-        target
-    );
+    displacement =  hello.notInitialVelocity(0, v_f, time, acceleration, target)
     } else if (avoid == 2) {
     v_0 = valuesArray[1];
     acceleration = valuesArray[3];
