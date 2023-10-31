@@ -1,5 +1,4 @@
 import * as equations from "/Kinematic-Equation-Calculator/js/kinematicEquations.js";
-// import { notTime } from "./kinematicEquations";
 var displacement = document.getElementById("displacement");
 var initialVelocity = document.getElementById("initial-velocity");
 var finalVelocity = document.getElementById("final-velocity");
