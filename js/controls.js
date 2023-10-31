@@ -92,10 +92,10 @@ if (target == 0) {
 }
 
 function displayOutputs(resultsArray) {
-out2.innerHTML = "";
+    out2.innerHTML = "";
     for (let i = 0; i < resultsArray.length; i++) {
-        out2.innerHTML += resultsArray[i].value + " ";
-    }
+        out2.innerHTML += resultsArray[i] + " ";
+        }
 }
 
 function validateForm() {
@@ -118,23 +118,23 @@ if (valueCount == 4 || valueCount == 3) {
     resetValues();
 }
 // this is only valid when there are 2 and 1 target(s)
-if (isValid) {
-    var targets = findTargets(valuesArray);
-    if (targets.length == 2) {
-    results.push(calculate(valuesArray, targets[0], targets[1]));
-    results.push(calculate(valuesArray, targets[1], targets[0]));
-    } else {
-    //four elements entered, choose one other element that is not target to avoid:
-    if (targets[0] == 0) {
-        results.push(calculate(valuesArray, targets[0], 1));
-    } else if (targets[0] == 4) {
-        results.push(calculate(valuesArray, targets[0], 3));
-    } else {
-        results.push(calculate(valuesArray, targets[0], targets[0] - 1));
+    if (isValid) {
+        var targets = findTargets(valuesArray);
+        if (targets.length == 2) {
+        results.push(calculate(valuesArray, targets[0], targets[1]));
+        results.push(calculate(valuesArray, targets[1], targets[0]));
+        } else {
+        //four elements entered, choose one other element that is not target to avoid:
+        if (targets[0] == 0) {
+            results.push(calculate(valuesArray, targets[0], 1));
+        } else if (targets[0] == 4) {
+            results.push(calculate(valuesArray, targets[0], 3));
+        } else {
+            results.push(calculate(valuesArray, targets[0], targets[0] - 1));
+        }
+        displayOutputs(results);
+        }
     }
-    displayOutputs(results);
-    }
-}
 }
 
 submitButton.addEventListener("click", validateForm);
