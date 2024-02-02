@@ -1,22 +1,26 @@
-import * as equations from "/Kinematic-Equation-Calculator/js/kinematicEquations.js";
+import * as equations from "./kinematicEquations.js";
 var displacement = document.getElementById("displacement");
 var initialVelocity = document.getElementById("initial-velocity");
 var finalVelocity = document.getElementById("final-velocity");
 var acceleration = document.getElementById("acceleration");
 var time = document.getElementById("time");
-var submitButton = document.getElementById("submit-btn");
-var out1 = document.getElementById("output-1");
+var submitButton = document.getElementById("submit");
+var disOut = document.getElementById("displacement-out");
+var ivOut = document.getElementById("initial-velocity-out");
+var fvOut = document.getElementById("final-velocity-out");
+var accOut = document.getElementById("acceleration-out");
+var tOut = document.getElementById("time-out");
+
 var out2 = document.getElementById("results");
 
 var isValid = false;
 
 function displayInputs() {
-    out1.innerHTML = "";
-    out1.innerHTML += displacement.value + " ";
-    out1.innerHTML += initialVelocity.value + " ";
-    out1.innerHTML += finalVelocity.value + " ";
-    out1.innerHTML += acceleration.value + " ";
-    out1.innerHTML += time.value + " ";
+    disOut.innerHTML = "Displacement: " + displacement.value;
+    ivOut.innerHTML = "Initial Velocity: " + initialVelocity.value;
+    fvOut.innerHTML = "Final Velocity: " + finalVelocity.value;
+    accOut.innerHTML = "Acceleration: " + acceleration.value;
+    tOut.innerHTML = "Time: " + time.value;
 }
 
 function getValues() {
@@ -33,7 +37,6 @@ function countValues(array) {
         valueCount++;
         }
     }
-    console.log(array);
     return valueCount;
 }
 
@@ -57,61 +60,136 @@ function findTargets(valuesArray) {
 }
 
 function calculate(valuesArray, target, avoid) {
-    var displacement;
+    var dis;
     var v_0;
     var v_f;
-    var acceleration;
-    var time;
+    var acc;
+    var time_;
     if (target == 0) {
         if (avoid == 1) {
             v_f = valuesArray[2];
-            acceleration = valuesArray[3];
-            time = valuesArray[4];
-            displacement =  equations.notInitialVelocity(0, v_f, time, acceleration, target)
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            dis =  equations.notInitialVelocity(dis, v_f, time_, acc, target)
         } else if (avoid == 2) {
             v_0 = valuesArray[1];
-            acceleration = valuesArray[3];
-            time = valuesArray[4];
-            displacement = equations.notFinalVelocity(0, v_0, time, acceleration, target);
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            dis = equations.notFinalVelocity(dis, v_0, time_, acc, target);
         } else if (avoid == 3) {
             v_0 = valuesArray[1];
             v_f = valuesArray[2];
-            time = valuesArray[4];
-            displacement = equations.notAcceleration(0, v_0, v_f, time, target);
+            time_ = valuesArray[4];
+            dis = equations.notAcceleration(dis, v_0, v_f, time_, target);
         } else if (avoid == 4) {
             v_0 = valuesArray[1];
             v_f = valuesArray[2];
-            acceleration = valuesArray[3];
-            displacement = equations.notTime(v_f, v_0, acceleration, 0, target);
+            acc = valuesArray[3];
+            dis = equations.notTime(v_f, v_0, acc, dis, target);
         } else {
             System.out.println("Value to avoid was unexpected");
         }
-        return displacement;
+        return dis;
     } else if (target == 1) {
         if (avoid == 0) {
             v_f = valuesArray[2];
-            acceleration = valuesArray[3];
-            time = valuesArray[4];
-            v_0 =  equations.notDisplacement(v_f, 0, acceleration, time, target);
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            v_0 =  equations.notDisplacement(v_f, v_0, acc, time_, target);
         } else if (avoid == 2) {
-            displacement = valuesArray[0];
-            acceleration = valuesArray[3];
-            time = valuesArray[4];
-            v_0 = equations.notFinalVelocity(displacement, 0, time, acceleration, target);
+            dis = valuesArray[0];
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            v_0 = equations.notFinalVelocity(dis, v_0, time_, acc, target);
         } else if (avoid == 3) {
-            displacement = valuesArray[0];
+            dis = valuesArray[0];
             v_f = valuesArray[2];
-            time = valuesArray[4];
-            v_0 = equations.notAcceleration(displacement, 0, v_f, time, target);
+            time_ = valuesArray[4];
+            v_0 = equations.notAcceleration(dis, v_0, v_f, time_, target);
         } else if (avoid == 4) {
-            displacement = valuesArray[0];
+            dis = valuesArray[0];
             v_f = valuesArray[2];
-            acceleration = valuesArray[3];
-            v_0 = equations.notTime(v_f, 0, acceleration, displacement, target);
+            acc = valuesArray[3];
+            v_0 = equations.notTime(v_f, v_0, acc, dis, target);
         } else {
             System.out.println("Value to avoid was unexpected");
         }
         return v_0;
+    } if (target == 2) {
+        if (avoid == 0) {
+            v_0 = valuesArray[1];
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            v_f =  equations.notDisplacement(v_f, v_0, acc, time_, target);
+        } else if (avoid == 1) {
+            dis = valuesArray[0];
+            acc = valuesArray[3];
+            time_ = valuesArray[4];
+            v_f = equations.notInitialVelocity(dis, v_f, time_, acc, target);
+        } else if (avoid == 3) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            time_ = valuesArray[4];
+            v_f = equations.notAcceleration(dis, v_0, v_f, time_, target);
+        } else if (avoid == 4) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            acc = valuesArray[3];
+            v_f = equations.notTime(v_f, v_0, acc, dis, target);
+        } else {
+            System.out.println("Value to avoid was unexpected");
+        }
+        return v_f;
+    } if (target == 3) {
+        if (avoid == 0) {
+            v_0 = valuesArray[1];
+            v_f = valuesArray[2];
+            time_ = valuesArray[4];
+            acc =  equations.notDisplacement(v_f, v_0, acc, time_, target);
+        } else if (avoid == 1) {
+            dis = valuesArray[0];
+            v_f = valuesArray[2];
+            time_ = valuesArray[4];
+            acc = equations.notInitialVelocity(dis, v_f, time_, acc, target);
+        } else if (avoid == 2) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            time_ = valuesArray[4];
+            acc = equations.notFinalVelocity(dis, v_0, time_, acc, target);
+        } else if (avoid == 4) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            v_f = valuesArray[2];
+            acc = equations.notTime(v_f, v_0, acc, dis, target);
+        } else {
+            System.out.println("Value to avoid was unexpected");
+        }
+        return acc;
+    } if (target == 4) {
+        if (avoid == 0) {
+            v_0 = valuesArray[1];
+            acc = valuesArray[3];
+            v_f = valuesArray[2];
+            time_ =  equations.notDisplacement(v_f, v_0, acc, time_, target);
+        } else if (avoid == 1) {
+            dis = valuesArray[0];
+            acc = valuesArray[3];
+            v_f = valuesArray[2];
+            time_ = equations.notInitialVelocity(dis, v_f, titime_me, acc, target);
+        } else if (avoid == 2) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            acc = valuesArray[3];
+            time_ = equations.notFinalVelocity(dis, v_0, time_, acc, target);
+        } else if (avoid == 3) {
+            v_0 = valuesArray[1];
+            dis = valuesArray[0];
+            v_f = valuesArray[2];
+            time_ = equations.notAcceleration(dis, v_0, v_f, time_, target);
+        } else {
+            System.out.println("Value to avoid was unexpected");
+        }
+        return time_;
     }
 }
 
@@ -124,6 +202,7 @@ function displayOutputs(resultsArray) {
 
 function validateForm() {
     var valuesArray = getValues();
+    console.log(valuesArray);
     var valueCount = countValues(valuesArray);
     var results = [];
 
@@ -147,14 +226,21 @@ function validateForm() {
         if (targets.length == 2) {
             results.push(calculate(valuesArray, targets[0], targets[1]));
             results.push(calculate(valuesArray, targets[1], targets[0]));
+            console.log(results);
+            alert("target indexes from values array pushed to results!");
         } else {
             //four elements entered, choose one other element that is not target to avoid:
+            // if we are trying to calculate targets[0] == 0, then we cant avoid -1 as the index,
+            // but if we are trying to calculate anything other than targets[0] == 0, then the 
+            // variable to avoid can just be targets[0] - 1. 
+            // targets[0] == 4 -> 3
+            // targets[0] == 3 -> 2
+            // targets[0] == 2 -> 1
+            // targets[0] == 1 -> 0
             if (targets[0] == 0) {
                 results.push(calculate(valuesArray, targets[0], 1));
-            } else if (targets[0] == 4) {
-                results.push(calculate(valuesArray, targets[0], 3));
             } else {
-                results.push(calculate(valuesArray, targets[0], targets[0] - 1));
+                results.push(calculate(valuesArray, targets[0], (targets[0] - 1)));
             }
         }
         displayOutputs(results);

@@ -12,38 +12,51 @@
       Enter 3/5 of the following variables to get the remaining 2 as results!
     </p>
     <div class="container">
-      <label class="item" for="displacement">Displacement: </label>
-      <input class="item" type="number" name="displacement" id="displacement" />
+      <form>
+        <label class="item" for="displacement">Displacement: </label>
+        <input
+          class="item"
+          type="number"
+          name="displacement"
+          id="displacement"
+        />
 
-      <label class="item" for="initial-velocity">Initial Velocity: </label>
-      <input
-        class="item"
-        type="number"
-        name="initial-velocity"
-        id="initial-velocity"
-      />
+        <label class="item" for="initial-velocity">Initial Velocity: </label>
+        <input
+          class="item"
+          type="number"
+          name="initial-velocity"
+          id="initial-velocity"
+        />
 
-      <label class="item" for="final-velocity">Final Velocity: </label>
-      <input
-        class="item"
-        type="number"
-        name="final-velocity"
-        id="final-velocity"
-      />
+        <label class="item" for="final-velocity">Final Velocity: </label>
+        <input
+          class="item"
+          type="number"
+          name="final-velocity"
+          id="final-velocity"
+        />
 
-      <label class="item" for="acceleration">Acceleration: </label>
-      <input class="item" type="number" name="acceleration" id="acceleration" />
+        <label class="item" for="acceleration">Acceleration: </label>
+        <input
+          class="item"
+          type="number"
+          name="acceleration"
+          id="acceleration"
+        />
 
-      <label class="item" for="time">Time: </label>
-      <input class="item" type="number" name="time" id="time" />
-      <button id="submit-btn">Calculate</button>
+        <label class="item" for="time">Time: </label>
+        <input class="item" type="number" name="time" id="time" />
+        <button id="submit">Calculate</button>
+      </form>
 
-      <p class="output" id="output-1"></p>
+      <p class="displacement-out" id="displacement-out"></p>
+      <p class="initial-velocity-out" id="initial-velocity-out"></p>
+      <p class="final-velocity-out" id="final-velocity-out"></p>
+      <p class="acceleration-out" id="acceleration-out"></p>
+      <p class="time-out" id="time-out"></p>
       <p class="results" id="results"></p>
     </div>
-    <script
-      src="/Kinematic-Equation-Calculator/js/controls.js"
-      type="module"
-    ></script>
+    <script src="./js/controls.js" type="module"></script>
   </body>
 </html>
