@@ -11,8 +11,6 @@ var fvOut = document.getElementById("final-velocity-out");
 var accOut = document.getElementById("acceleration-out");
 var tOut = document.getElementById("time-out");
 
-var out2 = document.getElementById("results");
-
 var isValid = false;
 
 function displayInputs() {
@@ -193,21 +191,19 @@ function calculate(valuesArray, target, avoid) {
     }
 }
 
-function displayOutputs(resultsArray) {
-    out2.innerHTML = "";
-    for (let i = 0; i < resultsArray.length; i++) {
-        out2.innerHTML += resultsArray[i] + " ";
-        }
+function displayOutputs(valuesArray) {
+    disOut.innerHTML = "Displacement: " + valuesArray[0];
+    ivOut.innerHTML = "Initial Velocity: " + valuesArray[1];
+    fvOut.innerHTML = "Final Velocity: " + valuesArray[2];
+    accOut.innerHTML = "Acceleration: " + valuesArray[3];
+    tOut.innerHTML = "Time: " + valuesArray[4];
 }
 
 function validateForm() {
     var valuesArray = getValues();
-    console.log(valuesArray);
     var valueCount = countValues(valuesArray);
     var results = [];
 
-    //valuecount is now the number of the fields that is filled in.
-    console.log(valueCount);
     //checking arguments based on valueCount
     if (valueCount == 4 || valueCount == 3) {
         isValid = true;
@@ -222,12 +218,11 @@ function validateForm() {
     }
     // this is only valid when there are 2 and 1 target(s)
     if (isValid) {
+        displayInputs();
         var targets = findTargets(valuesArray);
         if (targets.length == 2) {
             results.push(calculate(valuesArray, targets[0], targets[1]));
             results.push(calculate(valuesArray, targets[1], targets[0]));
-            console.log(results);
-            alert("target indexes from values array pushed to results!");
         } else {
             //four elements entered, choose one other element that is not target to avoid:
             // if we are trying to calculate targets[0] == 0, then we cant avoid -1 as the index,
@@ -243,9 +238,12 @@ function validateForm() {
                 results.push(calculate(valuesArray, targets[0], (targets[0] - 1)));
             }
         }
-        displayOutputs(results);
+        // fill the values array with calculated values
+        for (let i = 0; i < targets.length; i++) {
+            valuesArray[targets[i]] = results[i];
+        }
+        displayOutputs(valuesArray);
     }
 }
 
 submitButton.addEventListener("click", validateForm);
-submitButton.addEventListener("click", displayInputs);
