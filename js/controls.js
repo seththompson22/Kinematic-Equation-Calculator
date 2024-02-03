@@ -5,11 +5,8 @@ var finalVelocity = document.querySelector("#final-velocity");
 var acceleration = document.querySelector("#acceleration");
 var time = document.querySelector("#time");
 var submitButton = document.querySelector("#submit");
-var disOut = document.querySelector("#displacement-out");
-var ivOut = document.querySelector("#initial-velocity-out");
-var fvOut = document.querySelector("#final-velocity-out");
-var accOut = document.querySelector("#acceleration-out");
-var tOut = document.querySelector("#time-out");
+var clearButton = document.querySelector("#clear");
+
 
 var isValid = false;
 
@@ -183,44 +180,51 @@ function calculate(valuesArray, target, avoid) {
     }
 }
 
-function displayOutputs(valuesArray) {
+function resetStorage() {
+    localStorage.removeItem("displacement");
+    localStorage.removeItem("initial-velocity");
+    localStorage.removeItem("final-velocity");
+    localStorage.removeItem("acceleration");
+    localStorage.removeItem("time");
+}
+
+function updateStorage(valuesArray) {
     
     // Check if there is stored content
-    let storedContent = localStorage.getItem("storedContent");
+    let displacement = localStorage.getItem("displacement");
 
-    if (storedContent) {
+    if (displacement) {
         // If there is stored content, clear it and update the output
-        localStorage.removeItem("displacement");
-        localStorage.removeItem("initial-velocity");
-        localStorage.removeItem("final-velocity");
-        localStorage.removeItem("acceleration");
-        localStorage.removeItem("time");
-        disOut.innerHTML = "_";
-        ivOut.innerHTML = "_";
-        fvOut.innerHTML = "_";
-        accOut.innerHTML = "_";
-        tOut.innerHTML = "_";
-    } else {
-        // If there is no stored content, set it and update the output
-        
+        resetStorage();
+    } 
+        // if there set local storage to current values and update the output  
         localStorage.setItem("displacement", valuesArray[0]);
         localStorage.setItem("initial-velocity", valuesArray[1]);
         localStorage.setItem("final-velocity", valuesArray[2]);
         localStorage.setItem("acceleration", valuesArray[3]);
         localStorage.setItem("time", valuesArray[4]);
-        
-        disOut.innerHTML = localStorage.getItem("displacement");
-        ivOut.innerHTML = localStorage.getItem("initial-velocity");
-        fvOut.innerHTML = localStorage.getItem("final-velocity");
-        accOut.innerHTML = localStorage.getItem("acceleration");
-        tOut.innerHTML = localStorage.getItem("time");
-    }
+}
 
-    // disOut.innerHTML = "Displacement: " + valuesArray[0] + " meters";
-    // ivOut.innerHTML = "Initial Velocity: " + valuesArray[1] + "m/s";
-    // fvOut.innerHTML = "Final Velocity: " + valuesArray[2] + " m/s";
-    // accOut.innerHTML = "Acceleration: " + valuesArray[3] + " m/s^2";
-    // tOut.innerHTML = "Time: " + valuesArray[4] + " s";
+function printStorage() {
+    let displacement = localStorage.getItem("displacement");
+
+    if (displacement) {
+        // If there is stored content, print it
+        let localStorageDataDiv = document.getElementById("localStorageData");
+
+        // Iterate through all keys in local storage
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            let value = localStorage.getItem(key);
+
+            // Create a paragraph element to display each key-value pair
+            let paragraph = document.createElement("p");
+            paragraph.textContent = `${key}: ${value}`;
+
+            // Append the paragraph to the container
+            localStorageDataDiv.appendChild(paragraph);
+        }
+    }
 }
 
 function validateForm() {
@@ -235,9 +239,12 @@ function validateForm() {
         isValid = false;
         alert("you cannot enter all 5 values");
         resetValues();
-    } else {
+    } else if (valueCount == 2 || valueCount == 1) {
         isValid = false;
         alert("not enough values entered!");
+        resetValues();
+    } else {
+        isValid = false;
         resetValues();
     }
     // this is only valid when there are 2 and 1 target(s)
@@ -265,15 +272,14 @@ function validateForm() {
         for (let i = 0; i < targets.length; i++) {
             valuesArray[targets[i]] = results[i];
         }
-        displayOutputs(valuesArray);
+        updateStorage(valuesArray);
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    let storedContent = localStorage.getItem("storedContent");
-    if (storedContent) {
-        document.getElementById("output").innerHTML = storedContent;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    printStorage();
 });
 
 submitButton.addEventListener('click', validateForm);
+
+clearButton.addEventListener('click', resetStorage);
