@@ -1,25 +1,17 @@
 import * as equations from "./kinematicEquations.js";
-var displacement = document.getElementById("displacement");
-var initialVelocity = document.getElementById("initial-velocity");
-var finalVelocity = document.getElementById("final-velocity");
-var acceleration = document.getElementById("acceleration");
-var time = document.getElementById("time");
-var submitButton = document.getElementById("submit");
-var disOut = document.getElementById("displacement-out");
-var ivOut = document.getElementById("initial-velocity-out");
-var fvOut = document.getElementById("final-velocity-out");
-var accOut = document.getElementById("acceleration-out");
-var tOut = document.getElementById("time-out");
+var displacement = document.querySelector("#displacement");
+var initialVelocity = document.querySelector("#initial-velocity");
+var finalVelocity = document.querySelector("#final-velocity");
+var acceleration = document.querySelector("#acceleration");
+var time = document.querySelector("#time");
+var submitButton = document.querySelector("#submit");
+var disOut = document.querySelector("#displacement-out");
+var ivOut = document.querySelector("#initial-velocity-out");
+var fvOut = document.querySelector("#final-velocity-out");
+var accOut = document.querySelector("#acceleration-out");
+var tOut = document.querySelector("#time-out");
 
 var isValid = false;
-
-function displayInputs() {
-    disOut.innerHTML = "Displacement: " + displacement.value;
-    ivOut.innerHTML = "Initial Velocity: " + initialVelocity.value;
-    fvOut.innerHTML = "Final Velocity: " + finalVelocity.value;
-    accOut.innerHTML = "Acceleration: " + acceleration.value;
-    tOut.innerHTML = "Time: " + time.value;
-}
 
 function getValues() {
     const nodelist = document.querySelectorAll(".container input");
@@ -192,11 +184,43 @@ function calculate(valuesArray, target, avoid) {
 }
 
 function displayOutputs(valuesArray) {
-    disOut.innerHTML = "Displacement: " + valuesArray[0];
-    ivOut.innerHTML = "Initial Velocity: " + valuesArray[1];
-    fvOut.innerHTML = "Final Velocity: " + valuesArray[2];
-    accOut.innerHTML = "Acceleration: " + valuesArray[3];
-    tOut.innerHTML = "Time: " + valuesArray[4];
+    
+    // Check if there is stored content
+    let storedContent = localStorage.getItem("storedContent");
+
+    if (storedContent) {
+        // If there is stored content, clear it and update the output
+        localStorage.removeItem("displacement");
+        localStorage.removeItem("initial-velocity");
+        localStorage.removeItem("final-velocity");
+        localStorage.removeItem("acceleration");
+        localStorage.removeItem("time");
+        disOut.innerHTML = "_";
+        ivOut.innerHTML = "_";
+        fvOut.innerHTML = "_";
+        accOut.innerHTML = "_";
+        tOut.innerHTML = "_";
+    } else {
+        // If there is no stored content, set it and update the output
+        
+        localStorage.setItem("displacement", valuesArray[0]);
+        localStorage.setItem("initial-velocity", valuesArray[1]);
+        localStorage.setItem("final-velocity", valuesArray[2]);
+        localStorage.setItem("acceleration", valuesArray[3]);
+        localStorage.setItem("time", valuesArray[4]);
+        
+        disOut.innerHTML = localStorage.getItem("displacement");
+        ivOut.innerHTML = localStorage.getItem("initial-velocity");
+        fvOut.innerHTML = localStorage.getItem("final-velocity");
+        accOut.innerHTML = localStorage.getItem("acceleration");
+        tOut.innerHTML = localStorage.getItem("time");
+    }
+
+    // disOut.innerHTML = "Displacement: " + valuesArray[0] + " meters";
+    // ivOut.innerHTML = "Initial Velocity: " + valuesArray[1] + "m/s";
+    // fvOut.innerHTML = "Final Velocity: " + valuesArray[2] + " m/s";
+    // accOut.innerHTML = "Acceleration: " + valuesArray[3] + " m/s^2";
+    // tOut.innerHTML = "Time: " + valuesArray[4] + " s";
 }
 
 function validateForm() {
@@ -218,7 +242,6 @@ function validateForm() {
     }
     // this is only valid when there are 2 and 1 target(s)
     if (isValid) {
-        displayInputs();
         var targets = findTargets(valuesArray);
         if (targets.length == 2) {
             results.push(calculate(valuesArray, targets[0], targets[1]));
@@ -246,4 +269,11 @@ function validateForm() {
     }
 }
 
-submitButton.addEventListener("click", validateForm);
+document.addEventListener("DOMContentLoaded", () => {
+    let storedContent = localStorage.getItem("storedContent");
+    if (storedContent) {
+        document.getElementById("output").innerHTML = storedContent;
+    }
+});
+
+submitButton.addEventListener('click', validateForm);
